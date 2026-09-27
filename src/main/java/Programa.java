@@ -102,5 +102,4 @@ public class Programa
     {
     }
 
-    // TODO: Agregar que muestre los dias restantes
 }
