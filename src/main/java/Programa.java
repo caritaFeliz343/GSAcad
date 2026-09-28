@@ -57,8 +57,7 @@ public class Programa
         else if (numero == 2) // eliminar ramos
         {
             System.out.println("Ingresa el nombre del ramo que quieres eliminar: ");
-            String ramo = input.next();
-            eliminarRamos(ramo);
+            eliminarRamos();
         }
         else if (numero == 3) // agregar evaluaciones
         {
@@ -92,9 +91,21 @@ public class Programa
         ramos.add(String.valueOf(new Ramo(nombreRamo)));
         System.out.println("Ramo '" + nombreRamo + "' agregado con éxito.");
     }
-    public static void eliminarRamos(String Ramo)
-    {
-        ramos.remove(Ramo);
+    public static void eliminarRamos() {
+        if (ramos.isEmpty()) {
+            System.out.println("No hay ramos registrados para eliminar.");
+            return;
+        }
+        listarRamos();
+        System.out.print("Selecciona el número del ramo que quieres eliminar: ");
+        int seleccion = leerOpcion(scanner);
+
+        if (seleccion >= 1 && seleccion <= ramos.size()) {
+            String ramoEliminado = ramos.remove(seleccion - 1);
+            System.out.println("Ramo '" + ramoEliminado + "' eliminado con éxito.");
+        } else {
+            System.out.println("Número de selección inválido.");
+        }
     }
 
     public static void agregarEvaluaciones(String Eval)
