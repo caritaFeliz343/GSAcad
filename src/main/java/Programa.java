@@ -20,7 +20,7 @@ public class Programa
             numeroOpcion = leerOpcion(scanner);
             ejecutarOpcion(numeroOpcion, scanner);
         }
-        while (numeroOpcion!=7);
+        while (numeroOpcion!=8);
     }
     public static void mostrarMenu()
     {
@@ -177,9 +177,72 @@ public class Programa
 
     public static void listarEvaluaciones()
     {
+        if (ramos.isEmpty()) {
+            System.out.println("No hay ramos registrados.");
+            return;
+        }
+
+        System.out.println("\n--- LISTA GENERAL DE EVALUACIONES ---");
+        for (int i = 0; i < ramos.size(); i++) {
+            Ramo r = ramos.get(i);
+            System.out.println((i + 1) + ". Ramo: " + r.getNombre());
+            if (r.getEvaluaciones().isEmpty()) {
+                System.out.println("   (Sin evaluaciones asignadas)");
+            } else {
+                for (Evaluacion e : r.getEvaluaciones()) {
+                    System.out.println("   - " + e.toString());
+                }
+            }
+        }
     }
 
     public static void modificarPrioridadEvaluacion() {
-    }
+if (ramos.isEmpty()) {
+    System.out.println("No hay ramos registrados.");
+    return;
+}
 
+    listarRamos();
+        System.out.print("Selecciona el número del ramo: ");
+    int seleccionRamo = leerOpcion(scanner);
+
+        if (seleccionRamo < 1 || seleccionRamo > ramos.size()) {
+    System.out.println("Número de ramo inválido.");
+    return;
+}
+
+    Ramo ramoSeleccionado = ramos.get(seleccionRamo - 1);
+    ArrayList<Evaluacion> evals = ramoSeleccionado.getEvaluaciones();
+
+        if (evals.isEmpty()) {
+    System.out.println("El ramo '" + ramoSeleccionado.getNombre() + "' no tiene evaluaciones registradas.");
+    return;
+}
+
+        System.out.println("\n--- EVALUACIONES EN " + ramoSeleccionado.getNombre().toUpperCase() + " ---");
+        for (int i = 0; i < evals.size(); i++) {
+    System.out.println((i + 1) + ". " + evals.get(i).toString());
+}
+
+        System.out.print("Selecciona el número de la evaluación a modificar: ");
+    int seleccionEval = leerOpcion(scanner);
+
+        if (seleccionEval < 1 || seleccionEval > evals.size()) {
+    System.out.println("Número de evaluación inválido.");
+    return;
+}
+
+    Evaluacion evalSeleccionada = evals.get(seleccionEval - 1);
+
+        System.out.println("\nPrioridad actual: " + evalSeleccionada.getPrioridad() + " (" + evalSeleccionada.getPrioridadTexto() + ")");
+        System.out.println("Selecciona el nuevo nivel de prioridad:");
+        System.out.println("1. Baja");
+        System.out.println("2. Media");
+        System.out.println("3. Alta");
+        System.out.print("Nueva opción (1-3): ");
+    int nuevaPrioridad = leerOpcion(scanner);
+
+        evalSeleccionada.setPrioridad(nuevaPrioridad);
+        System.out.println("¡Prioridad de '" + evalSeleccionada.getNombre() + "' modificada con éxito a: " + evalSeleccionada.getPrioridadTexto() + "!");
+}
 }
