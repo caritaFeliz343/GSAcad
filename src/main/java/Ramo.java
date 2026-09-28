@@ -18,4 +18,11 @@ public class Ramo {
         return evaluaciones;
     }
 
+    public void agregarEvaluacion(Evaluacion eval) {
+        evaluaciones.add(eval);
+    }
+
+    public Evaluacion eliminarEvaluacion(int indice) {
+        return evaluaciones.remove(indice);
+    }
 }
