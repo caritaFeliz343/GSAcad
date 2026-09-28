@@ -65,9 +65,7 @@ public class Programa
         }
         else if (numero == 4) // eliminar evaluaciones
         {
-            System.out.println("Ingresa el nombre de la evaluacion que quieres eliminar: ");
-            String evaluacion = input.next();
-            eliminarEvaluaciones(evaluacion);
+            eliminarEvaluaciones();
         }
         else if (numero == 5) // listar ramos
         {
@@ -133,9 +131,42 @@ public class Programa
         System.out.println("Evaluación agregada con éxito al ramo " + ramoSeleccionado.getNombre() + ".");
     }
 
-    public static void eliminarEvaluaciones(String Eval)
-    {
-        evaluaciones.remove(Eval);
+    public static void eliminarEvaluaciones() {
+        if (ramos.isEmpty()) {
+            System.out.println("No hay ramos registrados.");
+            return;
+        }
+        listarRamos();
+        System.out.print("Selecciona el número del ramo: ");
+        int seleccionRamo = leerOpcion(scanner);
+
+        if (seleccionRamo < 1 || seleccionRamo > ramos.size()) {
+            System.out.println("Número de ramo inválido.");
+            return;
+        }
+
+        Ramo ramoSeleccionado = ramos.get(seleccionRamo - 1);
+        ArrayList<Evaluacion> evals = ramoSeleccionado.getEvaluaciones();
+
+        if (evals.isEmpty()) {
+            System.out.println("El ramo '" + ramoSeleccionado.getNombre() + "' no tiene evaluaciones asignadas.");
+            return;
+        }
+
+        System.out.println("\n--- EVALUACIONES EN " + ramoSeleccionado.getNombre().toUpperCase() + " ---");
+        for (int i = 0; i < evals.size(); i++) {
+            System.out.println((i + 1) + ". " + evals.get(i).getNombre());
+        }
+
+        System.out.print("Selecciona el número de la evaluación a eliminar: ");
+        int seleccionEval = leerOpcion(scanner);
+
+        if (seleccionEval >= 1 && seleccionEval <= evals.size()) {
+            Evaluacion evalEliminada = ramoSeleccionado.eliminarEvaluacion(seleccionEval - 1);
+            System.out.println("Evaluación '" + evalEliminada.getNombre() + "' eliminada con éxito.");
+        } else {
+            System.out.println("Número de evaluación inválido.");
+        }
     }
 
     public static void listarRamos() {
