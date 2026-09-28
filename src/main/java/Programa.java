@@ -87,11 +87,11 @@ public class Programa
             System.out.println("Opción no válida.");
         }
     }
-    public static void agregarRamos(String Ramo)
-    {
-        ramos.add(Ramo);
-    }
 
+    public static void agregarRamos(String nombreRamo) {
+        ramos.add(String.valueOf(new Ramo(nombreRamo)));
+        System.out.println("Ramo '" + nombreRamo + "' agregado con éxito.");
+    }
     public static void eliminarRamos(String Ramo)
     {
         ramos.remove(Ramo);
