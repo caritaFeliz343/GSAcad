@@ -62,11 +62,15 @@ public class Programa
         }
         else if (numero == 3) // agregar evaluaciones
         {
-            agregarEvaluaciones();
+            System.out.println("Ingresa el nombre de la evaluacion que quieres agregar: ");
+            String evaluacion = input.next();
+            agregarEvaluaciones(evaluacion);
         }
         else if (numero == 4) // eliminar evaluaciones
         {
-            eliminarEvaluaciones();
+            System.out.println("Ingresa el nombre de la evaluacion que quieres eliminar: ");
+            String evaluacion = input.next();
+            eliminarEvaluaciones(evaluacion);
         }
         else if (numero == 5) // listar ramos
         {
@@ -93,18 +97,22 @@ public class Programa
         ramos.remove(Ramo);
     }
 
-    public static void agregarEvaluaciones()
+    public static void agregarEvaluaciones(String Eval)
     {
-        // TODO
+        evaluaciones.add(Eval);
     }
 
-    public static void eliminarEvaluaciones()
+    public static void eliminarEvaluaciones(String Eval)
     {
-        // TODO
+        evaluaciones.remove(Eval);
     }
 
     public static void listarRamos()
     {
+        for (String ramo : ramos)
+        {
+            System.out.println(ramo);
+        }
 
     }
 
