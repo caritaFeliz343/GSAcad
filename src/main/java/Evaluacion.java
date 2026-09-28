@@ -1,4 +1,3 @@
-package main.java;
 
 public class Evaluacion {
     private String nombre;

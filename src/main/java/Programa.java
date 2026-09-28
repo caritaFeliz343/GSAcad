@@ -1,4 +1,3 @@
-package main.java;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -84,15 +83,14 @@ public class Programa
             System.out.println("Opción no válida.");
         }
     }
-    }
     public static void agregarRamos(String Ramo)
     {
-        ramo.add(Ramo);
+        ramos.add(Ramo);
     }
 
     public static void eliminarRamos(String Ramo)
     {
-        ramo.remove(Ramo);
+        ramos.remove(Ramo);
     }
 
     public static void agregarEvaluaciones()
