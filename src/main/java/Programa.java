@@ -35,14 +35,17 @@ public class Programa
         System.out.println("4. Eliminar evaluaciones");
         System.out.println("5. Listar ramos");
         System.out.println("6. Listar evaluaciones");
-        System.out.println("7. Salir del programa");
+        System.out.println("7. Modificar prioridad de evaluacion");
+        System.out.println("8. Salir del programa");
         System.out.println("==================================");
         System.out.print("Tu opcion: ");
     }
-    public static int leerOpcion(Scanner in)
-    {
-        int opcionSeleccionada = Integer.parseInt(in.next());
-        return opcionSeleccionada;
+    public static int leerOpcion(Scanner in) {
+        try {
+            return Integer.parseInt(in.nextLine().trim());
+        } catch (Exception e) {
+            return -1;
+        }
     }
     public static void ejecutarOpcion(int numero, Scanner input)
     {
@@ -73,16 +76,23 @@ public class Programa
         else if (numero == 6) // listar evaluaciones
         {
             listarEvaluaciones();
+        } else if (numero == 7) {
+            modificarPrioridadEvaluacion();
+        } else if (numero == 8) {
+            System.out.println("Saliendo del programa...");
+        } else {
+            System.out.println("Opción no válida.");
         }
+    }
     }
     public static void agregarRamos(String Ramo)
     {
-        ramos.add(Ramo);
+        ramo.add(Ramo);
     }
 
     public static void eliminarRamos(String Ramo)
     {
-        ramos.remove(Ramo);
+        ramo.remove(Ramo);
     }
 
     public static void agregarEvaluaciones()
@@ -102,6 +112,9 @@ public class Programa
 
     public static void listarEvaluaciones()
     {
+    }
+
+    public static void modificarPrioridadEvaluacion() {
     }
 
 }
