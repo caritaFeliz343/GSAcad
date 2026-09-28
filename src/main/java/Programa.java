@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Programa
 {
     public static Scanner scanner = new Scanner(System.in);
-    public static ArrayList<String> ramos = new ArrayList<>();
+    public static ArrayList<Ramo> ramos = new ArrayList<>();
     public static ArrayList<String> evaluaciones = new ArrayList<>();
 
     public static void main(String[] args)
@@ -61,9 +61,7 @@ public class Programa
         }
         else if (numero == 3) // agregar evaluaciones
         {
-            System.out.println("Ingresa el nombre de la evaluacion que quieres agregar: ");
-            String evaluacion = input.next();
-            agregarEvaluaciones(evaluacion);
+            agregarEvaluaciones();
         }
         else if (numero == 4) // eliminar evaluaciones
         {
@@ -88,7 +86,7 @@ public class Programa
     }
 
     public static void agregarRamos(String nombreRamo) {
-        ramos.add(String.valueOf(new Ramo(nombreRamo)));
+        ramos.add(new Ramo(nombreRamo));
         System.out.println("Ramo '" + nombreRamo + "' agregado con éxito.");
     }
     public static void eliminarRamos() {
@@ -101,16 +99,38 @@ public class Programa
         int seleccion = leerOpcion(scanner);
 
         if (seleccion >= 1 && seleccion <= ramos.size()) {
-            String ramoEliminado = ramos.remove(seleccion - 1);
-            System.out.println("Ramo '" + ramoEliminado + "' eliminado con éxito.");
+            Ramo ramoEliminado = ramos.remove(seleccion - 1);
+            System.out.println("Ramo '" + ramoEliminado.getNombre() + "' eliminado con éxito.");
         } else {
             System.out.println("Número de selección inválido.");
         }
     }
 
-    public static void agregarEvaluaciones(String Eval)
-    {
-        evaluaciones.add(Eval);
+    public static void agregarEvaluaciones() {
+        if (ramos.isEmpty()) {
+            System.out.println("Debes agregar al menos un ramo primero.");
+            return;
+        }
+        listarRamos();
+        System.out.print("Selecciona el número del ramo al que pertenece la evaluación: ");
+        int seleccionRamo = leerOpcion(scanner);
+
+        if (seleccionRamo < 1 || seleccionRamo > ramos.size()) {
+            System.out.println("Número de ramo inválido.");
+            return;
+        }
+
+        Ramo ramoSeleccionado = ramos.get(seleccionRamo - 1);
+        System.out.print("Ingresa el nombre de la evaluación: ");
+        String nombreEval = scanner.nextLine();
+
+        System.out.println("Selecciona el nivel de prioridad:\n1. Baja\n2. Media\n3. Alta");
+        System.out.print("Opción (1-3): ");
+        int prioridad = leerOpcion(scanner);
+
+        Evaluacion nuevaEval = new Evaluacion(nombreEval, prioridad);
+        ramoSeleccionado.agregarEvaluacion(nuevaEval);
+        System.out.println("Evaluación agregada con éxito al ramo " + ramoSeleccionado.getNombre() + ".");
     }
 
     public static void eliminarEvaluaciones(String Eval)
@@ -118,13 +138,10 @@ public class Programa
         evaluaciones.remove(Eval);
     }
 
-    public static void listarRamos()
-    {
-        for (String ramo : ramos)
-        {
-            System.out.println(ramo);
+    public static void listarRamos() {
+        for (int i = 0; i < ramos.size(); i++) {
+            System.out.println((i + 1) + ". " + ramos.get(i).getNombre());
         }
-
     }
 
     public static void listarEvaluaciones()
